@@ -4,9 +4,9 @@ import { getCompony, getComponybyId, registerCompony, UpdateCompony } from "../c
 
 const router = express.Router()
 
-router.route("/registercompony").post(isAuthenticated,registerCompony)
-router.route("/Allcompony").post(isAuthenticated,getCompony)
-router.route("/getcompony/:id").post(isAuthenticated,getComponybyId)
-router.route("/updatecompony/:id").post(isAuthenticated, UpdateCompony)
+router.route("/register").post(isAuthenticated,registerCompony)
+router.route("/get").get(isAuthenticated,getCompony)
+router.route("/get/:id").get(isAuthenticated,getComponybyId)
+router.route("/update/:id").put(isAuthenticated, UpdateCompony)
 
 export default router
