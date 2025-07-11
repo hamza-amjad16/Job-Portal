@@ -6,6 +6,7 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { LogOut, User2 } from "lucide-react";
 
 function Navbar() {
+  const user = false
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
@@ -20,6 +21,13 @@ function Navbar() {
             <li>Jobs</li>
             <li>Browse</li>
           </ul>
+          {
+            !user ? (
+                <div className="flex items-center gap-2">
+                <Link to="/login"><Button variant="outline">Login</Button></Link> 
+                <Link to="/signup"><Button className="bg-[#6A38C2] hover:bg-[#6b38c2c2]" >Signup</Button></Link>  
+                </div>
+            ) : (
 
           <Popover>
             <PopoverTrigger asChild>
@@ -51,6 +59,9 @@ function Navbar() {
               </div>
             </PopoverContent>
           </Popover>
+
+            )
+          }
         </div>
       </div>
     </div>
