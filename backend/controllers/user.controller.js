@@ -4,14 +4,13 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const { fullname, email, phone, password, role } = req.body;
-    if (!fullname || !email || !phone || !role) {
+    const { fullname, email, phoneNumber, password, role } = req.body;
+    if (!fullname || !email || !phoneNumber || !role){
       return res.status(400).json({
         message: "Some information is missing",
         success: false,
       });
     }
-
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({
@@ -25,7 +24,7 @@ export const register = async (req, res) => {
     await User.create({
       fullname,
       email,
-      phone,
+      phoneNumber,
       password: hashedPassword,
       role,
     });
@@ -86,7 +85,7 @@ export const login = async (req, res) => {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
-      phone: user.phone,
+      phoneNumber: user.phoneNumber,
       role: user.role,
       profile: user.profile,
     };
@@ -123,7 +122,7 @@ export const logout = async (req , res) => {
 
 export const updateProfile = async(req , res) => {
     try {
-        const {fullname , email , phone , bio , skills} = req.body
+        const {fullname , email , phoneNumber , bio , skills} = req.body
         const file = req.file
     // cloudinary file here
 
@@ -143,7 +142,7 @@ export const updateProfile = async(req , res) => {
     // updating data
    if(fullname) user.fullname = fullname
    if(email) user.email = email
-   if(phone) user.phone = phone
+   if(phoneNumber) user.phoneNumber = phoneNumber
    if(bio) user.profile.bio = bio
    if(skills) user.profile.skills = skillsArray
 
@@ -155,7 +154,7 @@ export const updateProfile = async(req , res) => {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
-      phone: user.phone,
+      phoneNumber: user.phoneNumber,
       role: user.role,
       profile: user.profile,
     };
