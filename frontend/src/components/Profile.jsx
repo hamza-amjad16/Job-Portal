@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./shared/Navbar";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -6,11 +6,15 @@ import { Contact, Mail, Pen } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Label } from "./ui/label";
 import AppliedJobsTable from "./AppliedJobsTable";
+import UpdateProfileDialouge from "./UpdateProfileDialouge";
+import { useSelector } from "react-redux";
 
-const skills = ["Html", "Css", "JavaScript"];
+const isHaveResume = true;
 
 function Profile() {
-  const isHaveResume = true;
+  const [open , setOpen] = useState(false)
+  const {user} = useSelector((store) => store.auth)
+
   return (
     <div>
       <Navbar />
@@ -21,32 +25,31 @@ function Profile() {
               <AvatarImage src="https://tse1.mm.bing.net/th/id/OIP.36fCycmxr3gzbABn5gmJjgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Full Name</h1>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. In,
-                fugiat.
+              {user?.profile?.bio}
               </p>
             </div>
           </div>
-          <Button className="text-right" variant="outline">
+          <Button onClick={() => setOpen(true)} className="text-right" variant="outline">
             <Pen />
           </Button>
         </div>
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>hamza@gmail.com</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>+92 3336778564</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-2">
-            {skills.length != 0 ? (
-              skills.map((items, index) => <Badge key={index}>{items}</Badge>)
+            {user?.profile?.skills != 0 ? (
+              user?.profile?.skills.map((items, index) => <Badge key={index}>{items}</Badge>)
             ) : (
               <span>Skills Not Applicable</span>
             )}
@@ -60,7 +63,7 @@ function Profile() {
               target="blank"
               href="https://youtube.com"
             >
-              Resume.pdf
+              {user?.profile?.resume}
             </a>
           ) : (
             <span>Resume Not Applicable</span>
@@ -71,6 +74,7 @@ function Profile() {
         <h1 className="font-bold text-lg my-5">All applied Jobs</h1>
         <AppliedJobsTable />
       </div>
+      <UpdateProfileDialouge open={open} setOpen={setOpen} />
     </div>
   );
 }

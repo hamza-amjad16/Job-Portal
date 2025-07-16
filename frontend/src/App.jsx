@@ -5,6 +5,7 @@ import Signup from "./components/Signup.jsx"
 import Jobs from "./components/Jobs.jsx"
 import Browse from "./components/Browse.jsx"
 import Profile from "./components/Profile.jsx"
+import JobDescription from "./components/JobDescription.jsx"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/description/:id" element={<JobDescription />} />
 
       </Routes>
     </BrowserRouter>
