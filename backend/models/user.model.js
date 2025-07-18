@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         resume: {type: String}, // Url to resume file
         resumeOriginalname: {type: String},
         compony: {type:mongoose.Types.ObjectId , ref:"Compony"}, 
-        profilePhote: {type: String , default: ""}
+        profilePhoto: {type: String , default: ""}
     }
     
 }, {timestamps: true})

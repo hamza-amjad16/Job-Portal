@@ -14,7 +14,7 @@ const componySchema = new mongoose.Schema({
     },
     logo:{
         type: String, //Url compony logo
-        required: true
+        // required: true
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

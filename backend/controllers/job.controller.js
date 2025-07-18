@@ -3,12 +3,13 @@ import { Job } from "../models/job.model.js"
 export const postJob = async (req , res) => {
     try {
         const {title , description , requirements, salary, location, jobType, 
-            experience, position, componyId } = req.body
+            experience, position, compony } = req.body
+            
 
         const userId = req.id
 
         if(!title || !description || !requirements || !salary || !location || !jobType 
-           || !experience || !position ||!componyId){
+           || !experience || !position ||!compony){
             return res.status(400).json({
                 message: "Something is missing",
                 success: false
@@ -23,7 +24,7 @@ export const postJob = async (req , res) => {
         jobType,
         experience,
         position,
-        compony: componyId,
+        compony,
         created_by: userId
     })
 

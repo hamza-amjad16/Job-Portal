@@ -60,10 +60,11 @@ function Profile() {
           {isHaveResume ? (
             <a
               className="text-blue-500 w-full hover:underline cursor-pointer"
-              target="blank"
-              href="https://youtube.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={user?.profile?.resume}
             >
-              {user?.profile?.resume}
+              {user?.profile?.resumeOriginalname}
             </a>
           ) : (
             <span>Resume Not Applicable</span>

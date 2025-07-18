@@ -2,7 +2,7 @@ import {Compony} from "../models/compony.model.js"
 
 export const registerCompony = async (req , res ) => {
     try {
-        const {componyName} = req.body
+        const { name: componyName} = req.body
         if(!componyName){
             return res.status(400).json({
                 message: "Compony name is required",
@@ -37,7 +37,7 @@ export const registerCompony = async (req , res ) => {
 export const getCompony = async (req , res) => {
     try {
         const userId = req.id
-        const componies = await Compony.find({userId})
+        const componies = await Compony.find(userId)
         if(!componies){
             return res.status(404).json({
                 message: "Componies not found",
@@ -59,7 +59,7 @@ export const getCompony = async (req , res) => {
 export const getComponybyId = async (req , res) => {
     try {
         const componyId = req.params.id
-        const compony = await Compony.findById({componyId})
+        const compony = await Compony.findById(componyId)
          if(!compony){
             return res.status(404).json({
                 message: "Compony not found",
