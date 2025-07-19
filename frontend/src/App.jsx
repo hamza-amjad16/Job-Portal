@@ -6,6 +6,8 @@ import Jobs from "./components/Jobs.jsx"
 import Browse from "./components/Browse.jsx"
 import Profile from "./components/Profile.jsx"
 import JobDescription from "./components/JobDescription.jsx"
+import Companies from "./components/admin/Companies.jsx"
+import CreateCompany from "./components/admin/CreateCompany.jsx"
 
 function App() {
 
@@ -20,6 +22,9 @@ function App() {
         <Route path="/browse" element={<Browse />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/description/:id" element={<JobDescription />} />
+        {/* Admin routes */}
+        <Route path="/admin/companies" element={<Companies />}  />
+        <Route path="/admin/companies/create" element={<CreateCompany />}  />
 
       </Routes>
     </BrowserRouter>
