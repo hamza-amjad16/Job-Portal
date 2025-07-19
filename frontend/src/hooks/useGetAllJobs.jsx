@@ -16,8 +16,7 @@ function useGetAllJobs() {
                     dispatch(setAllJobs(res.data.jobs))
                 }
             } catch (error) {
-                console.log("fetch All Jobs error", fetchAllJobs);
-                
+                console.log("fetch All Jobs error", error);
             }
         }
         fetchAllJobs()

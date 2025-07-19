@@ -44,7 +44,8 @@ function Login() {
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log("Login error", error);
+      console.log(error);
+      toast.error(error.res.data.message)
     } finally {
       dispatch(setLoading(false));
     }

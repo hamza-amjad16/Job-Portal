@@ -11,25 +11,25 @@ import { USER_API_END_POINT } from "@/utils/constant";
 import { setUser } from "@/redux/authSlice";
 
 function Navbar() {
-  const {user} = useSelector((store) => store.auth)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const logoutHandler = async () => {
     try {
-      const response = await axios.get(`${USER_API_END_POINT}/logout`,{
-        withCredentials: true
-      })
-      if(response.data.success){
-        dispatch(setUser(null))
-        navigate("/")
-        toast.success(response.data.message)
+      const response = await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        dispatch(setUser(null));
+        navigate("/");
+        toast.success(response.data.message);
       }
     } catch (error) {
       console.log(error);
-      
-      toast.error(error.response.data.message)
+
+      toast.error(error.response.data.message);
     }
-  }
+  };
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
@@ -40,51 +40,79 @@ function Navbar() {
         </div>
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-5">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/jobs">Jobs</Link></li>
-            <li><Link to="/browse">Browse</Link></li>
-          </ul>
-          {
-            !user ? (
-                <div className="flex items-center gap-2">
-                <Link to="/login"><Button variant="outline">Login</Button></Link> 
-                <Link to="/signup"><Button className="bg-[#3858c2] hover:bg-[#3858c2bd]" >Signup</Button></Link>  
-                </div>
+            {user && user.role === "recruiter" ? (
+              <>
+                <li>
+                  <Link to="/admin/companies">Companies</Link>
+                </li>
+                <li>
+                  <Link to="/admin/jobs">Jobs</Link>
+                </li>
+              </>
             ) : (
-
-          <Popover>
-            <PopoverTrigger asChild>
-              <Avatar>
-                <AvatarImage src={user?.profile?.profilePhoto} />
-              </Avatar>
-            </PopoverTrigger>
-            <PopoverContent className="w-80">
-              <div className="flex gap-4 space-y-2">
+              <>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/jobs">Jobs</Link>
+                </li>
+                <li>
+                  <Link to="/browse">Browse</Link>
+                </li>
+              </>
+            )}
+          </ul>
+          {!user ? (
+            <div className="flex items-center gap-2">
+              <Link to="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="bg-[#3858c2] hover:bg-[#3858c2bd]">
+                  Signup
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <Popover>
+              <PopoverTrigger asChild>
                 <Avatar>
                   <AvatarImage src={user?.profile?.profilePhoto} />
                 </Avatar>
-                <div>
-                  <h4 className="font-medium ">{user.fullname}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {user?.profile?.bio}
-                  </p>
+              </PopoverTrigger>
+              <PopoverContent className="w-80">
+                <div className="flex gap-4 space-y-2">
+                  <Avatar>
+                    <AvatarImage src={user?.profile?.profilePhoto} />
+                  </Avatar>
+                  <div>
+                    <h4 className="font-medium ">{user.fullname}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {user?.profile?.bio}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex flex-col my-2 text-gray-600">
-                <div className="flex w-fit items-center gap-2 cursor-pointer">
-                <User2 />
-                <Button variant="link"> <Link to="/profile">View Profile</Link> </Button>
+                <div className="flex flex-col my-2 text-gray-600">
+                  {user && user.role === "student" && (
+                    <div className="flex w-fit items-center gap-2 cursor-pointer">
+                      <User2 />
+                      <Button variant="link">
+                        {" "}
+                        <Link to="/profile">View Profile</Link>{" "}
+                      </Button>
+                    </div>
+                  )}
+                  <div className="flex w-fit items-center gap-2 cursor-pointer">
+                    <LogOut />
+                    <Button onClick={logoutHandler} variant="link">
+                      Logout
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex w-fit items-center gap-2 cursor-pointer">
-                <LogOut />
-                <Button onClick={logoutHandler} variant="link">Logout</Button>
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-
-            )
-          }
+              </PopoverContent>
+            </Popover>
+          )}
         </div>
       </div>
     </div>
