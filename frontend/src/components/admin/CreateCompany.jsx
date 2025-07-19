@@ -8,16 +8,16 @@ import axios from "axios";
 import { COMPANY_API_END_POINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import {setSingleCompony} from "@/redux/componySlice"
+import {setSingleCompony} from "@/redux/componySlice.js"
 
 function CreateCompany() {
-    const [CompanyName , setCompanyName] = useState()
+    const [companyName , setCompanyName] = useState("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const registerNewCompany = async() => {
         try {
-            const res = await axios.post(`${COMPANY_API_END_POINT}/register`, {CompanyName}, {
+            const res = await axios.post(`${COMPANY_API_END_POINT}/register`, {name: companyName}, {
                 headers: {
                     "Content-Type": "application/json"
                 },
@@ -31,7 +31,6 @@ function CreateCompany() {
             }
         } catch (error) {
             console.log("Register New Company Error" , error);
-            
         }
     }
   return (

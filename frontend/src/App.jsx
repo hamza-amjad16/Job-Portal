@@ -8,6 +8,7 @@ import Profile from "./components/Profile.jsx"
 import JobDescription from "./components/JobDescription.jsx"
 import Companies from "./components/admin/Companies.jsx"
 import CreateCompany from "./components/admin/CreateCompany.jsx"
+import CompanySetup from "./components/admin/CompanySetup.jsx"
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
         {/* Admin routes */}
         <Route path="/admin/companies" element={<Companies />}  />
         <Route path="/admin/companies/create" element={<CreateCompany />}  />
+        <Route path="/admin/companies/:id" element={<CompanySetup />}  />
+
 
       </Routes>
     </BrowserRouter>

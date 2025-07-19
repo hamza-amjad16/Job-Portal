@@ -12,8 +12,12 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { Popover, PopoverContent } from "../ui/popover";
 import { Edit2, MoreHorizontal } from "lucide-react";
 import { PopoverTrigger } from "@radix-ui/react-popover";
+import { useSelector } from "react-redux";
 
 function CompaniesTable() {
+  const { componies } = useSelector((store) => store.compony);
+  console.log("All Componies",componies);
+  
   return (
     <div>
       <Table>
@@ -27,27 +31,35 @@ function CompaniesTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableCell>
-            <Avatar>
-              <AvatarImage
-                src="https://tse1.mm.bing.net/th/id/OIP.36fCycmxr3gzbABn5gmJjgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
-                alt="Company Logo"
-              />
-            </Avatar>
-          </TableCell>
-          <TableCell>Company Name</TableCell>
-          <TableCell>14-07-2025</TableCell>
-          <TableCell className="text-right cursor-pointer">
-            <Popover>
-                <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
-              <PopoverContent className="w-32 ">
-                <div className="flex items-center gap-2 cursor-pointer w-fit">
-                    <Edit2 className="w-4"/>
-                    <span>Edit</span>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </TableCell>
+          {
+            componies?.map((compony) => (
+               <tr key={compony._id}>
+                  <TableCell>
+                    <Avatar>
+                      <AvatarImage
+                        src="https://tse1.mm.bing.net/th/id/OIP.36fCycmxr3gzbABn5gmJjgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Company Logo"
+                      />
+                    </Avatar>
+                  </TableCell>
+                  <TableCell>{compony.name}</TableCell>
+                  <TableCell>{compony.createdAt.split("T")[0]}</TableCell>
+                  <TableCell className="text-right cursor-pointer">
+                    <Popover>
+                      <PopoverTrigger>
+                        <MoreHorizontal />
+                      </PopoverTrigger>
+                      <PopoverContent className="w-32 ">
+                        <div className="flex items-center gap-2 cursor-pointer w-fit">
+                          <Edit2 className="w-4" />
+                          <span>Edit</span>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  </TableCell>
+               </tr>
+              ))
+          }
         </TableBody>
       </Table>
     </div>

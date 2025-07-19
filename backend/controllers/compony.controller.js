@@ -1,8 +1,10 @@
 import {Compony} from "../models/compony.model.js"
+import cloudinary from "../utils/cloudinary.js"
+import getDataUri from "../utils/datauri.js"
 
 export const registerCompony = async (req , res ) => {
     try {
-        const { name: componyName} = req.body
+        const { name: componyName } = req.body
         if(!componyName){
             return res.status(400).json({
                 message: "Compony name is required",
@@ -37,7 +39,7 @@ export const registerCompony = async (req , res ) => {
 export const getCompony = async (req , res) => {
     try {
         const userId = req.id
-        const componies = await Compony.find(userId)
+        const componies = await Compony.find({userId : userId})
         if(!componies){
             return res.status(404).json({
                 message: "Componies not found",
@@ -82,10 +84,14 @@ export const UpdateCompony = async (req , res) => {
     try {
         const {name, description, website, location} = req.body
         const file = req.file
-
         // cloudinary
+        const fileUri = getDataUri(file)
+        const cloud_response = await cloudinary.uploader.upload(fileUri.content,{
+            resource_type: "raw"
+        })
+        const logo = cloud_response.secure_url
 
-        const updateData = {name, description, website, location}
+        const updateData = {name, description, website, location , logo}
 
         const compony = await Compony.findByIdAndUpdate(req.params.id , updateData , {new: true})
 

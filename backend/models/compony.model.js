@@ -10,11 +10,10 @@ const componySchema = new mongoose.Schema({
         type: String,
     },
     website: {
-        type: Number,
+        type: String,
     },
     logo:{
         type: String, //Url compony logo
-        // required: true
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
