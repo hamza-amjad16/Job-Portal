@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -13,10 +13,23 @@ import { Popover, PopoverContent } from "../ui/popover";
 import { Edit2, MoreHorizontal } from "lucide-react";
 import { PopoverTrigger } from "@radix-ui/react-popover";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CompaniesTable() {
-  const { componies } = useSelector((store) => store.compony);
-  console.log("All Componies",componies);
+  const { componies, searchComponyByText } = useSelector((store) => store.compony);
+  const [filterCompany, setFilterCompany] = useState(componies)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const filteredCompany = componies.length >= 0 && componies.filter((company) => {
+      if(!searchComponyByText){
+        return true
+      }
+
+      return company?.name.toLowerCase().includes(searchComponyByText.toLowerCase())
+    })
+    setFilterCompany(filteredCompany)
+  },[componies, searchComponyByText])
   
   return (
     <div>
@@ -32,12 +45,12 @@ function CompaniesTable() {
         </TableHeader>
         <TableBody>
           {
-            componies?.map((compony) => (
+            filterCompany?.map((compony) => (
                <tr key={compony._id}>
                   <TableCell>
                     <Avatar>
                       <AvatarImage
-                        src="https://tse1.mm.bing.net/th/id/OIP.36fCycmxr3gzbABn5gmJjgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3"
+                        src={compony.logo}
                         alt="Company Logo"
                       />
                     </Avatar>
@@ -50,7 +63,7 @@ function CompaniesTable() {
                         <MoreHorizontal />
                       </PopoverTrigger>
                       <PopoverContent className="w-32 ">
-                        <div className="flex items-center gap-2 cursor-pointer w-fit">
+                        <div onClick={() => navigate(`/admin/companies/${compony._id}`)} className="flex items-center gap-2 cursor-pointer w-fit">
                           <Edit2 className="w-4" />
                           <span>Edit</span>
                         </div>

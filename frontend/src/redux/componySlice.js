@@ -4,7 +4,8 @@ const componySlice = createSlice({
         name: "compony",
         initialState: {
             singleCompony: null,
-            componies: []
+            componies: [],
+            searchComponyByText: ""
         },
         reducers: {
             setSingleCompony: (state , action) => {
@@ -12,9 +13,12 @@ const componySlice = createSlice({
             },
             setCompanies: (state , action) => {
                 state.componies = action.payload
+            },
+            setsearchComponyByText: (state, action) => {
+                state.searchComponyByText = action.payload
             }
         }
 })
 
-export const {setSingleCompony , setCompanies} = componySlice.actions
+export const {setSingleCompony , setCompanies, setsearchComponyByText} = componySlice.actions
 export default componySlice.reducer

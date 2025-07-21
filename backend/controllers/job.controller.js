@@ -99,7 +99,10 @@ export const getJobById = async(req , res) => {
 export const getRecruiterJob = async(req , res) => {
     try {
         const recruiterId = req.id
-        const jobs = await Job.find({created_by: recruiterId})
+        const jobs = await Job.find({created_by: recruiterId}).populate({
+            path: "compony",
+            createdAt: -1
+        })
 
          if(!jobs){
             return res.status(404).json({
@@ -112,9 +115,6 @@ export const getRecruiterJob = async(req , res) => {
             jobs,
             success: true,
         })
-
-
-        
     } catch (error) {
         console.log("GET recruiter job",error);
     }
