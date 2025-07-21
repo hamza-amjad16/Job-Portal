@@ -15,6 +15,7 @@ function Job({job}) {
      const days =  Math.floor(timeDifference / (1000 * 24 * 60 * 60))
      return days === 0 ? "Today" : `${days} days ago`
   }
+
   return (
     <div className="p-5 rounded-md shadow-xl bg-white border border-gray-100">
       <div className="flex items-center justify-between">
@@ -29,7 +30,7 @@ function Job({job}) {
       <div className="flex items-center gap-2 my-2">
         <Button variant="outline" className="p-6" size="icon">
           <Avatar>
-            <AvatarImage src="https://tse1.mm.bing.net/th/id/OIP.36fCycmxr3gzbABn5gmJjgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" />
+          <AvatarImage src={job?.componyId?.logo} />
           </Avatar>
         </Button>
         <div>
@@ -42,9 +43,9 @@ function Job({job}) {
           <p className='text-sm text-gray-600'>{job?.description}</p>
         </div>
        <div className='flex items-center gap-2 mt-4'>
-                  <Badge variant="ghost" className="text-blue-700 font-bold">{job?.position} </Badge>
+                  <Badge variant="ghost" className="text-blue-700 font-bold">{job?.position} position</Badge>
                   <Badge variant="ghost" className="text-[#F83002] font-bold">{job?.jobType} </Badge>
-                  <Badge variant="ghost" className="text-[#7209b7] font-bold">{job?.salary} </Badge>
+                  <Badge variant="ghost" className="text-[#7209b7] font-bold">{job?.salary} LPA</Badge>
               </div>
       <div className="flex items-center gap-4 mt-4">
         <Button onClick={() => navigate(`/description/${job?._id}`)} variant="outline">Details</Button>

@@ -3,13 +3,13 @@ import { Job } from "../models/job.model.js"
 export const postJob = async (req , res) => {
     try {
         const {title , description , requirements, salary, location, jobType, 
-            experience, position, compony } = req.body
+            experience, position, componyId } = req.body
             
 
         const userId = req.id
 
         if(!title || !description || !requirements || !salary || !location || !jobType 
-           || !experience || !position ||!compony){
+           || !experience || !position ||!componyId){
             return res.status(400).json({
                 message: "Something is missing",
                 success: false
@@ -24,7 +24,7 @@ export const postJob = async (req , res) => {
         jobType,
         experience,
         position,
-        compony,
+        componyId,
         created_by: userId
     })
 
@@ -50,7 +50,7 @@ export const getAllJobs = async( req , res) => {
         }
 
         const jobs = await Job.find(query).populate({
-            path:"compony"
+            path:"componyId"
         }).sort({createdAt: -1})
 
         if(!jobs){
@@ -100,7 +100,7 @@ export const getRecruiterJob = async(req , res) => {
     try {
         const recruiterId = req.id
         const jobs = await Job.find({created_by: recruiterId}).populate({
-            path: "compony",
+            path: "componyId",
             createdAt: -1
         })
 

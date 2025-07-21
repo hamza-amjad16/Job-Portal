@@ -10,6 +10,8 @@ import Companies from "./components/admin/Companies.jsx"
 import CreateCompany from "./components/admin/CreateCompany.jsx"
 import CompanySetup from "./components/admin/CompanySetup.jsx"
 import AdminJobs from "./components/admin/AdminJobs.jsx"
+import PostJob from "./components/admin/PostJob.jsx"
+import Applicants from "./components/admin/Applicants.jsx"
 
 function App() {
 
@@ -29,7 +31,8 @@ function App() {
         <Route path="/admin/companies/create" element={<CreateCompany />}  />
         <Route path="/admin/companies/:id" element={<CompanySetup />}  />
         <Route path="/admin/jobs" element={<AdminJobs />}  />
-
+        <Route path="/admin/jobs/create" element={<PostJob />}  />
+        <Route path="/admin/jobs/:id/applicants" element={<Applicants />} />
 
       </Routes>
     </BrowserRouter>

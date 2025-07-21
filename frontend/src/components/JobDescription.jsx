@@ -56,13 +56,13 @@ function JobDescription() {
           <h1 className="font-bold text-xl">{singleJob?.title}</h1>
           <div className="flex items-center gap-2 mt-4">
             <Badge variant="ghost" className="text-blue-700 font-bold">
-              {singleJob?.position} {" "}
+              {singleJob?.position} position 
             </Badge>
             <Badge variant="ghost" className="text-[#F83002] font-bold">
-              {singleJob?.jobType} {" "}
+              {singleJob?.jobType} 
             </Badge>
             <Badge variant="ghost" className="text-[#7209b7] font-bold">
-              {singleJob?.salary} {" "}
+              {singleJob?.salary} LPA
             </Badge>
           </div>
         </div>

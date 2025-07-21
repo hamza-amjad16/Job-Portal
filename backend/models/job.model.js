@@ -32,7 +32,7 @@ const jobSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    compony: {
+    componyId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Compony",
         required: true
