@@ -12,6 +12,7 @@ import CompanySetup from "./components/admin/CompanySetup.jsx"
 import AdminJobs from "./components/admin/AdminJobs.jsx"
 import PostJob from "./components/admin/PostJob.jsx"
 import Applicants from "./components/admin/Applicants.jsx"
+import ProtectedRoute from "./components/admin/ProtectedRoute.jsx"
 
 function App() {
 
@@ -27,12 +28,14 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/description/:id" element={<JobDescription />} />
         {/* Admin routes */}
-        <Route path="/admin/companies" element={<Companies />}  />
-        <Route path="/admin/companies/create" element={<CreateCompany />}  />
-        <Route path="/admin/companies/:id" element={<CompanySetup />}  />
-        <Route path="/admin/jobs" element={<AdminJobs />}  />
-        <Route path="/admin/jobs/create" element={<PostJob />}  />
-        <Route path="/admin/jobs/:id/applicants" element={<Applicants />} />
+       
+        <Route path="/admin/companies" element={ <ProtectedRoute>  <Companies />   </ProtectedRoute>}  />
+        <Route path="/admin/companies/create" element={ <ProtectedRoute>  <CreateCompany /> </ProtectedRoute>}  />
+        <Route path="/admin/companies/:id" element={ <ProtectedRoute>  <CompanySetup />   </ProtectedRoute>}  />
+        <Route path="/admin/jobs" element={ <ProtectedRoute>  <AdminJobs />  </ProtectedRoute>}  />
+        <Route path="/admin/jobs/create" element={ <ProtectedRoute>  <PostJob />   </ProtectedRoute>}  />
+        <Route path="/admin/jobs/:id/applicants" element={ <ProtectedRoute>  <Applicants />   </ProtectedRoute>} />
+      
 
       </Routes>
     </BrowserRouter>

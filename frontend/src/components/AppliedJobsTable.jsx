@@ -35,7 +35,17 @@ function AppliedJobsTable() {
                 <TableCell>{appliedJob?.job?.title}</TableCell>
                 <TableCell>{appliedJob?.job?.componyId?.name}</TableCell>
                 <TableCell className="text-right">
-                  <Badge>{appliedJob?.status}</Badge>
+                  <Badge
+                    className={`${
+                      appliedJob?.status === "rejected"
+                        ? "bg-red-400"
+                        : appliedJob?.status === "pending"
+                        ? "bg-gray-400"
+                        : "bg-green-400"
+                    }`}
+                  >
+                    {appliedJob?.status.toUpperCase()}
+                  </Badge>
                 </TableCell>
               </TableRow>
             ))

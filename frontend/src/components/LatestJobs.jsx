@@ -15,7 +15,7 @@ function LatestJobs() {
       <div className="grid grid-cols-3 gap-4 my-5">
       {
         alljobs.length <= 0 ? <span>No Job Avalaible</span> 
-        : alljobs.slice(0,6).map((job) => <LatestJobCards key={job._id} job={job} />)
+        : alljobs.slice(0,6).map((job) => <LatestJobCards  key={job._id} job={job} />)
       }
       </div>
     </div>
