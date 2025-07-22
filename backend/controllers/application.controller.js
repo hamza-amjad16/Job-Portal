@@ -60,7 +60,7 @@ export const getAppliedJobs = async (req, res) => {
         path: "job",
         options: { sort: { creartedAt: -1 } },
         populate: {
-          path: "compony",
+          path: "componyId",
           options: { sort: { creartedAt: -1 } },
         },
       });
