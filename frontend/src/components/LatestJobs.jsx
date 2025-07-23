@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LatestJobCards from "./LatestJobCards";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import useGetAllJobs from "@/hooks/useGetAllJobs";
 
 function LatestJobs() {
@@ -13,10 +13,10 @@ function LatestJobs() {
         <span className="text-[#3858c2]">Latest & Top</span> Job Openings
       </h1>
       <div className="grid grid-cols-3 gap-4 my-5">
-      {
-        alljobs.length <= 0 ? <span>No Job Avalaible</span> 
-        : alljobs.slice(0,6).map((job) => <LatestJobCards  key={job._id} job={job} />)
-      }
+      {alljobs && alljobs.length > 0
+  ? alljobs.slice(0, 6).map((job) => <LatestJobCards key={job._id} job={job} />)
+  : <span>Loading jobs or No Job Available</span>}
+
       </div>
     </div>
   );

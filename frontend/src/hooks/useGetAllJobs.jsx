@@ -5,12 +5,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function useGetAllJobs() {
-    const dispatch = useDispatch()
-    const {searchedQuery} = useSelector((store) => store.job)
   useEffect(() => {
         const fetchAllJobs = async () => {
             try {
-                const res = await axios.get(`${JOB_API_END_POINT}/getAll?keyword=${searchedQuery}`,{
+                const res = await axios.get(`${JOB_API_END_POINT}/getAll`,{
                     withCredentials: true
                 })
                 if(res.data.success){

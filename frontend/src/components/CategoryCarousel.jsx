@@ -29,7 +29,7 @@ function CategoryCarousel() {
     }
   return (
     <div>
-      <Carousel className="w-full max-w-xl mx-auto my-20">
+      <Carousel className="w-full max-w-xl mx-auto my-12">
         <CarouselContent>
           {categories.map((category, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">

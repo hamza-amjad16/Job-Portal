@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { RadioGroup, RadioGroupItem } from './ui/radio-group'
 import { Label } from './ui/label'
 import { useDispatch } from 'react-redux'
-import { setSearchedQuery } from '@/redux/jobSlice'
+import { clearSearchQuery, setSearchedQuery } from '@/redux/jobSlice'
 
 const filterData = [
   {
@@ -13,23 +13,29 @@ const filterData = [
     filterType: "Industry",
     array:["Frontend Developer","Backend Developer","Full Stack Developer"]
   },
-  {
-    filterType: "Salary",
-    array:["0-80k","80 to 2lakh","2lakh to 5lakh"]
-  },
 ]
 
 function FilterCard() {
   const [selectedValue, setSelectedValue] = useState("")
   const dispatch = useDispatch()
 
-  const ChangeHandler = (value) => {
-    setSelectedValue(value)
+ const ChangeHandler = (value) => {
+    if (value === selectedValue) {
+      dispatch(clearSearchQuery())
+      setTimeout(() => {
+        dispatch(setSearchedQuery(value));
+      }, 0);
+    } else {
+      setSelectedValue(value)
+    }
   }
 
   useEffect(() => {
-    dispatch(setSearchedQuery(selectedValue))
-  },[selectedValue])
+    if (selectedValue !== "") {
+      dispatch(setSearchedQuery(selectedValue));
+    }
+  }, [selectedValue]);
+
   return (
     <div className='w-full bg-white p-3 rounded-md '>
       <h1 className='font-bold text-lg '>Filter Jobs</h1>
