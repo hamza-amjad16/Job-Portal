@@ -5,6 +5,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function useGetAllJobs() {
+    const dispatch = useDispatch()
   useEffect(() => {
         const fetchAllJobs = async () => {
             try {
