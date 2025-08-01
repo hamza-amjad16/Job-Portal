@@ -10,13 +10,21 @@ const jobSlice = createSlice({
     searchTextByJob: "",
     allAppliedJobs: [],
     searchedQuery: "",
-
   },
   reducers: {
     setAllJobs: (state, action) => {
       state.alljobs = action.payload;
-       state.filteredJobs = action.payload;
+
+      // Agar koi search query hai to filteredJobs us basis pe set karo
+      if (state.searchedQuery.trim() !== "") {
+        state.filteredJobs = action.payload.filter((job) =>
+          job.title.toLowerCase().includes(state.searchedQuery.toLowerCase())
+        );
+      } else {
+        state.filteredJobs = action.payload;
+      }
     },
+
     setSingleJob: (state, action) => {
       state.singleJob = action.payload;
     },
@@ -30,14 +38,13 @@ const jobSlice = createSlice({
       state.allAppliedJobs = action.payload;
     },
     setSearchedQuery: (state, action) => {
-      state.searchedQuery = action.payload
+      state.searchedQuery = action.payload;
 
-       state.filteredJobs = state.alljobs.filter((job) =>
-        job.title.toLowerCase().includes(action.payload.toLowerCase()) 
+      state.filteredJobs = state.alljobs.filter((job) =>
+        job.title.toLowerCase().includes(action.payload.toLowerCase())
       );
     },
 
-      
     clearSearchQuery: (state) => {
       state.searchedQuery = "";
       state.filteredJobs = state.alljobs;
@@ -52,6 +59,6 @@ export const {
   setSearchTextByJob,
   setAllAppliedJobs,
   setSearchedQuery,
-  clearSearchQuery
+  clearSearchQuery,
 } = jobSlice.actions;
 export default jobSlice.reducer;
