@@ -20,20 +20,28 @@ const categories = [
 ];
 
 function CategoryCarousel() {
-   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const searchJobHandler = (query) => {
-      dispatch(setSearchedQuery(query))
-      navigate("/browse")
-    }
+  const searchJobHandler = (query) => {
+    dispatch(setSearchedQuery(query));
+    navigate("/browse");
+  };
+
   return (
-    <div>
-      <Carousel className="w-full max-w-xl mx-auto my-12">
+    <div className="px-4">
+      <Carousel className="w-full max-w-5xl mx-auto my-12">
         <CarouselContent>
           {categories.map((category, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <Button onClick={() => searchJobHandler(category)} variant="outline" className="rounded-full" >
+            <CarouselItem
+              key={index}
+              className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 flex justify-center"
+            >
+              <Button
+                onClick={() => searchJobHandler(category)}
+                variant="outline"
+                className="rounded-full w-full sm:w-auto"
+              >
                 {category}
               </Button>
             </CarouselItem>

@@ -62,6 +62,7 @@ function CompanySetup() {
         navigate("/admin/companies");
       }
     } catch (error) {
+        toast.error(error.response.data.message);
       console.log("Setup Compony Error", error);
     } finally {
       setLoading(false);

@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 function AppliedJobsTable() {
   const { allAppliedJobs } = useSelector((store) => store.job);
   return (
-    <div>
+    <div className="overflow-x-auto">
       <Table>
         <TableCaption>A list of your applied jobs</TableCaption>
         <TableHeader>
@@ -26,8 +26,12 @@ function AppliedJobsTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {allAppliedJobs <= 0 ? (
-            <span>You haven't applied any job yet</span>
+          {(!allAppliedJobs || allAppliedJobs.length === 0) ? (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center text-gray-500">
+                You haven't applied any job yet
+              </TableCell>
+            </TableRow>
           ) : (
             allAppliedJobs.map((appliedJob) => (
               <TableRow key={appliedJob?._id}>

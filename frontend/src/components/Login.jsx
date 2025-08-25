@@ -36,34 +36,34 @@ function Login() {
         },
         withCredentials: true,
       });
-      console.log(res.data);
 
       if (res.data.success) {
-        dispatch(setUser(res.data.user))
+        dispatch(setUser(res.data.user));
         navigate("/");
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message)
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       dispatch(setLoading(false));
     }
   };
+
   useEffect(() => {
-    if(user){
-      navigate("/")
+    if (user) {
+      navigate("/");
     }
-  })
+  }, [user, navigate]);
+
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
+      <div className="flex items-center justify-center max-w-7xl mx-auto px-4">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 border border-gray-200 rounded-md p-6 my-10 shadow-md"
         >
-          <h1 className="font-bold text-2xl mb-5">Login</h1>
+          <h1 className="font-bold text-2xl mb-5 text-center">Login</h1>
           <div className="my-4">
             <Label className="my-2">Email</Label>
             <Input
@@ -83,8 +83,8 @@ function Login() {
               onChange={changeEventHandler}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between  gap-4 mt-4">
+            <RadioGroup className="flex items-center  w-full sm:w-auto">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -110,16 +110,15 @@ function Login() {
             </RadioGroup>
           </div>
           {loading ? (
-            <Button className="w-full my-4">
-              {" "}
+            <Button className="w-full my-6">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading...
             </Button>
           ) : (
-            <Button type="submit" className="w-full my-4">
+            <Button type="submit" className="w-full my-6">
               Login
             </Button>
           )}
-          <span className="text-sm">
+          <span className="text-sm block text-center">
             Don't have an account?
             <Link to="/signup" className="text-blue-600">
               {" "}

@@ -52,32 +52,32 @@ function Signup() {
         },
         withCredentials: true,
       });
-      console.log(res.data);
       if (res.data.success) {
         navigate("/login");
         toast.success(res.data.message);
       }
     } catch (error) {
-      console.log("SignUp error", error);
       toast.error(error.response.data.message);
     } finally {
       dispatch(setLoading(false));
     }
   };
+
   useEffect(() => {
-       if(user){
-         navigate("/")
-       }
-     })
+    if (user) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center max-w-7xl mx-auto">
+      <div className="flex items-center justify-center max-w-7xl mx-auto px-4">
         <form
           onSubmit={submitHandler}
-          className="w-1/2 border border-gray-200 rounded-md p-4 my-10"
+          className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 border border-gray-200 rounded-md p-6 my-10"
         >
-          <h1 className="font-bold text-2xl mb-5">Sign up</h1>
+          <h1 className="font-bold text-2xl mb-5 text-center">Sign up</h1>
           <div className="my-4">
             <Label className="my-2">Full Name</Label>
             <Input
@@ -99,9 +99,9 @@ function Signup() {
             />
           </div>
           <div className="my-4">
-            <Label className="my-2">phoneNumber</Label>
+            <Label className="my-2">Phone Number</Label>
             <Input
-              type="Number"
+              type="number"
               placeholder="e.g +92 336 2324249"
               value={input.phoneNumber}
               name="phoneNumber"
@@ -117,8 +117,8 @@ function Signup() {
               onChange={changeEventHandler}
             />
           </div>
-          <div className="flex items-center justify-between">
-            <RadioGroup className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center  gap-4">
+            <RadioGroup className="flex items-center gap-6">
               <div className="flex items-center space-x-2">
                 <Input
                   type="radio"
@@ -128,7 +128,7 @@ function Signup() {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r1">Student</Label>
+                <Label>Student</Label>
               </div>
               <div className="flex items-center space-x-2">
                 <Input
@@ -139,10 +139,10 @@ function Signup() {
                   onChange={changeEventHandler}
                   className="cursor-pointer"
                 />
-                <Label htmlFor="r2">Recruiter</Label>
+                <Label>Recruiter</Label>
               </div>
             </RadioGroup>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto">
               <Label>Profile</Label>
               <Input
                 accept="image/*"
@@ -154,7 +154,6 @@ function Signup() {
           </div>
           {loading ? (
             <Button className="w-full my-4">
-              {" "}
               <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading...
             </Button>
           ) : (
@@ -162,7 +161,7 @@ function Signup() {
               Sign up
             </Button>
           )}
-          <span className="text-sm">
+          <span className="text-sm block text-center">
             Already have an account?{" "}
             <Link to="/login" className="text-blue-600">
               Login
