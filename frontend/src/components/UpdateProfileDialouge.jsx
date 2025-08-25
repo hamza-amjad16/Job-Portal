@@ -64,7 +64,7 @@ function UpdateProfileDialouge({ open, setOpen }) {
       }
     } catch (error) {
       console.log("Update profile error",error);
-      toast.error(error.res.data.message)
+      toast.error(error.response.data.message)
     } finally {
       setLoading(false)
     }
